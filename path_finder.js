@@ -60,7 +60,7 @@ for(var i = 0; i < container.length; i++)
 
 function setup() 
 {
-  createCanvas(800, 600);
+  createCanvas(displayWidth, displayHeight);
   //custom_slider();
   sim = new Simulation(15, 1350, 0.97, 0.8, 65, 600, 90, 10, false, [], [0,0], [0,0], false, []);
 
@@ -512,7 +512,6 @@ class Simulation
 	  this.copy_path = false;
 	  this.check_epsiode = 35;
 	  this.max_step = this.action_limit;
-	  this.test = 0;
 	  this.show_path = false;
 	  this.load_map = load_map;
 	  this.load_ai = load_qmap;
@@ -1314,7 +1313,6 @@ class Simulation
 			this.draw_text(10, 100, `Distance: ${this.distance_old.toFixed()}`);	
 			this.draw_text(10, 150, `Steps a*: ${this.path.length}`);
 			this.draw_text(10, 175, `Steps ai: ${this.max_step}`);
-			this.draw_text(10, 200, `Test-Value: ${this.test}`);
 		}
 	}
   }
