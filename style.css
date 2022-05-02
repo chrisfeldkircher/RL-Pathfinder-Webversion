@@ -1,0 +1,407 @@
+html, body {
+	margin: 0;
+	padding: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+canvas {
+  display: block;
+}
+
+.range-slider
+{
+    max-width: 30em;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+}
+
+.range-slider .slider
+{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 0.4em;
+    outline: none;
+    border-radius: 3px;
+    background: #1f1f1f;
+    box-shadow: 3px 3px 6px #000, inset 1px 1px 1px #909090;
+}
+
+.range-slider .slider::-webkit-slider-thumb
+{
+    -webkit-appearance: none;
+    width: 1.7em;
+    height: 1.7em;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
+}
+
+.range-slider .slider-thumb
+{
+    position: absolute;
+    width: 1.7em;
+    height: 1.7em;
+    background: #090909;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: inset 0px 1px 2px #090909;
+}
+
+.range-slider .slider-thumb::before
+{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.7em;
+    height: 0.7em;
+    background: #333;
+    border-radius: inherit;
+    transition: 0.3s;
+}
+
+.range-slider:hover .slider-thumb::before
+{
+    background: #2ae9c9;
+}
+
+.range-slider .tooltip
+{
+    position: absolute;
+    width: 2.8em;
+    height: 2em;
+    top: -1em;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #090909;
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 3px 10px #1f1f1f, inset 0px 1px 2px #090909;
+}
+
+.range-slider .tooltip::before
+{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #090909;
+    bottom: -0.5em;
+    left: 50%;
+}
+
+.range-slider .progress
+{
+    width: 50%;
+    height: 0.4em;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #335bf4 0%, #2ae9c9 100%);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 700px)
+{
+    .neu-range-slider
+    {
+        width: 100%;
+    }
+}
+
+.form-control 
+{
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+input[type="checkbox"] 
+{
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+}
+
+input[type="checkbox"] 
+{
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.65em;
+    height: 1.65em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+}
+  
+  .form-control + .form-control 
+{
+    margin-top: 1em;
+}
+
+input[type="checkbox"] 
+{
+    /* ...existing styles */
+  
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before 
+{
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="checkbox"] 
+{
+    /* ...existing styles */
+    display: grid;
+    place-content: center;
+}
+  
+  input[type="checkbox"]::before 
+{
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+  
+  input[type="checkbox"]:checked::before 
+{
+    transform: scale(1);
+}
+
+input[type="checkbox"]::before 
+{
+    /* ...existing styles */
+  
+    /* Windows High Contrast Mode */
+    background-color: CanvasText;
+}
+
+input[type="checkbox"]::before 
+{
+    /* ...existing styles */
+  
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:focus 
+{
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+}
+
+:root 
+{
+    --form-control-color: rebeccapurple;
+    --form-control-disabled: #959495;
+}
+  
+  input[type="checkbox"]:disabled 
+{
+    --form-control-color: var(--form-control-disabled);
+  
+    color: var(--form-control-disabled);
+    cursor: not-allowed;
+}
+
+.form-control--disabled 
+{
+    color: var(--form-control-disabled);
+    cursor: not-allowed;
+}
+
+.start_btn
+{   
+    width: 80px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #4CAF50;
+}
+
+.stop_btn
+{
+    width: 80px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #c41c25;
+}
+
+.reset_btn
+{
+    width: 150px;
+    height: 32px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #cfcc13;
+    white-space: nowrap
+}
+
+.save_grid_btn
+{
+    width: 110px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #10a1c5;
+}
+
+.save_qmap_btn
+{
+    width: 120px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #10a1c5;
+}
+
+.load_grid_btn
+{
+    width: 110px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #2b10c5;
+}
+
+.load_qmap_btn
+{
+    width: 120px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: black;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 20px;
+    border: 2px solid #2b10c5;
+}
+
+button:before 
+{
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+button:active 
+{
+    color: black
+}
+
+button:active:after 
+{
+    background: transparent;
+}
+
+button:hover:before
+{
+    opacity: 1;
+}
+
+button:after 
+{
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing 
+{
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
