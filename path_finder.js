@@ -197,7 +197,7 @@ function save_map()
 
 function load() 
 {
-	if(this.elt.innerText == 'Load grid') 
+	if(this.elt.innerText === 'Load grid') 
 	{
 		input = document.createElement('input');
 		input.type = 'file';
@@ -515,7 +515,7 @@ class Simulation
 	  this.show_path = false;
 	  this.load_map = load_map;
 	  this.load_ai = load_qmap;
-	  this.loaded_qmap = JSON.parse(JSON.stringify(qmap));
+	  this.loaded_qmap = qmap;
     }
 	
 	random_grid()
