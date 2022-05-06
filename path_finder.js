@@ -46,6 +46,7 @@ let load_bol = false;
 let load_ai_bol = false;
 let start_pos = [];
 let goal = [];
+let loaded = 0;
 
 // const container = document.querySelectorAll(".range-slider");
 
@@ -128,7 +129,7 @@ function setup()
   p7.style('font-size', '16px');
   p7.position(800, 475);
 
-  checkbox1 = createCheckbox('Show a* Path', false);
+  checkbox1 = createCheckbox('Show precalculated path', false);
   checkbox1.position(800, 80);
   //checkbox1 = document.querySelector(".cbox1");
   checkbox1.changed(checkbox1_change);
@@ -205,116 +206,127 @@ function save_map()
 
 function load() 
 {
-	if(this.elt.innerText === 'Load grid') 
+	if(loaded == 0)
 	{
-		input = document.createElement('input');
-		input.type = 'file';
-		input.accept = '.csv'
-		input.onchange = e => 
+		if(this.elt.innerText === 'Load grid') 
 		{
-			var file = e.target.files[0]; 
-			var reader = new FileReader();
-			reader.readAsText(file,'UTF-8');
-
-			reader.onload = readerEvent => 
+			input = document.createElement('input');
+			input.type = 'file';
+			input.accept = '.csv'
+			input.onchange = e => 
 			{
-				var temp = [];
-				var grid = [];
-				file = readerEvent.target.result; // this is the content!
+				var file = e.target.files[0]; 
+				var reader = new FileReader();
+				reader.readAsText(file,'UTF-8');
 
-				for(let i = 0; i < file.length; i++)
+				reader.onload = readerEvent => 
 				{
-					if(file[i] == '\n') 
+					var temp = [];
+					var grid = [];
+					file = readerEvent.target.result; // this is the content!
+
+					for(let i = 0; i < file.length; i++)
 					{
-						grid.push(temp);
-						temp = [];
+						if(file[i] == '\n') 
+						{
+							grid.push(temp);
+							temp = [];
+						}
+						else if(file[i] != ',') 
+						{
+							if(file[i] == 5) temp.push(0);
+							else temp.push(file[i]);
+						}
 					}
-					else if(file[i] != ',') 
+
+					grid.forEach(x => loaded_file.push(x.map(Number)));
+
+					load_bol = true;
+				}
+			};
+			input.click();
+		}
+		else
+		{
+			input = document.createElement('input');
+			input.type = 'file';
+			input.accept = '.csv, .json'
+			input.multiple = 'multiple';
+			
+			input.onchange = e => 
+			{
+				if(e.target.files.length != 2) 
+				{
+					alert("More or less than two files selected!\nPlease select only the map and it's qmap!"); 
+					return;
+				}
+				else if((e.target.files[0].name.split('.')[1] == 'json' && e.target.files[1].name.split('.')[1] != 'csv') || (e.target.files[1].name.split('.')[1] == 'json' && e.target.files[0].name.split('.')[1] != 'csv') || (e.target.files[0].name.split('.')[1] == 'json' && e.target.files[1].name.split('.')[1] == 'json') || (e.target.files[0].name.split('.')[1] == 'csv' && e.target.files[1].name.split('.')[1] == 'csv'))
+				{
+					alert("Wrong file-format!\nPlease select a map and it's qmap!"); 
+					return;
+				}
+
+				let qmap_file;
+				let grid_file;
+
+				for(let i = 0; i<e.target.files.length; i++)
+				{
+					if(e.target.files[i].name.split('.')[1] == 'csv')
 					{
-						temp.push(file[i])
+						grid_file = e.target.files[i];
+					}
+					else
+					{
+						qmap_file = e.target.files[i];
 					}
 				}
 
-				grid.forEach(x => loaded_file.push(x.map(Number)));
+				var reader_grid = new FileReader();
+				reader_grid.readAsText(grid_file,'UTF-8');
 
-				load_bol = true;
-			}
-		};
-		input.click();
-	}
+				var reader_qmap = new FileReader();
+				reader_qmap.readAsText(qmap_file,'UTF-8');
+
+				reader_grid.onload = readerEvent => 
+				{
+					var temp = [];
+					var grid = [];
+					file = readerEvent.target.result; // this is the content!
+
+					for(let i = 0; i < file.length; i++)
+					{
+						if(file[i] == '\n') 
+						{
+							grid.push(temp);
+							temp = [];
+						}
+						else if(file[i] != ',') 
+						{
+							if(file[i] == 5) temp.push(0);
+							else temp.push(file[i]);
+						}
+					}
+
+					grid.forEach(x => loaded_file.push(x.map(Number)));
+				}
+
+				reader_qmap.onload = readerEvent => 
+				{
+					file = readerEvent.target.result; // this is the content!
+					
+					loaded_qmap = JSON.parse(file);
+
+					load_ai_bol = true;
+				}
+			};
+			input.click();
+		}
+
+		loaded = 1;
+    }
 	else
 	{
-		input = document.createElement('input');
-		input.type = 'file';
-		input.accept = '.csv, .json'
-		input.multiple = 'multiple';
-		
-		input.onchange = e => 
-		{
-			if(e.target.files.length != 2) 
-			{
-				alert("More or less than two files selected!\nPlease select only the map and it's qmap!"); 
-				return;
-			}
-			else if((e.target.files[0].name.split('.')[1] == 'json' && e.target.files[1].name.split('.')[1] != 'csv') || (e.target.files[1].name.split('.')[1] == 'json' && e.target.files[0].name.split('.')[1] != 'csv') || (e.target.files[0].name.split('.')[1] == 'json' && e.target.files[1].name.split('.')[1] == 'json') || (e.target.files[0].name.split('.')[1] == 'csv' && e.target.files[1].name.split('.')[1] == 'csv'))
-			{
-				alert("Wrong file-format!\nPlease select a map and it's qmap!"); 
-				return;
-			}
-
-			let qmap_file;
-			let grid_file;
-
-			for(let i = 0; i<e.target.files.length; i++)
-			{
-				if(e.target.files[i].name.split('.')[1] == 'csv')
-				{
-					grid_file = e.target.files[i];
-				}
-				else
-				{
-					qmap_file = e.target.files[i];
-				}
-			}
-
-			var reader_grid = new FileReader();
-			reader_grid.readAsText(grid_file,'UTF-8');
-
-			var reader_qmap = new FileReader();
-			reader_qmap.readAsText(qmap_file,'UTF-8');
-
-			reader_grid.onload = readerEvent => 
-			{
-				var temp = [];
-				var grid = [];
-				file = readerEvent.target.result; // this is the content!
-
-				for(let i = 0; i < file.length; i++)
-				{
-					if(file[i] == '\n') 
-					{
-						grid.push(temp);
-						temp = [];
-					}
-					else if(file[i] != ',') 
-					{
-						temp.push(file[i])
-					}
-				}
-
-				grid.forEach(x => loaded_file.push(x.map(Number)));
-			}
-
-			reader_qmap.onload = readerEvent => 
-			{
-				file = readerEvent.target.result; // this is the content!
-				
-				loaded_qmap = JSON.parse(file);
-
-				load_ai_bol = true;
-			}
-		};
-		input.click();
+		location.reload();
 	}
 }
 
@@ -1236,7 +1248,6 @@ class Simulation
 	{
         let idx_player = [0,0];
         let idx_goal = [0,0];
-		let distance = 0;
 
 		for(let i = 0; i < this.grid.length; i++)
 		{
@@ -1311,7 +1322,7 @@ class Simulation
                 this.copy_path = false;
 			}
 			
-			if(this.episode > this.check_epsiode) this.draw_path(this.ai_path, 'rgba(100,0,0,0.1)');
+			if(this.episode > this.check_epsiode) this.draw_path(this.ai_path, 'rgba(100,0,0,0.35)');
 			
 			this.draw_text(10, 25, `Episodes: ${this.episode}`);
 			this.draw_text(10, 50, `Actions: ${this.actions}`);
