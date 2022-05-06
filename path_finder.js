@@ -67,6 +67,7 @@ function setup()
   slider1 = createSlider(0, 1, 0.97, 0.01);
   slider1.position(800, 160);
   slider1.style('width', '150px');
+  slider1.addClass('range');
   p = createP(`Discount value: ${slider1.value()}`);
   p.style('font-size', '16px');
   p.position(800, 125);
@@ -74,6 +75,7 @@ function setup()
   slider2 = createSlider(0, 1, 0.8, 0.01);
   slider2.position(800, 210);
   slider2.style('width', '150px');
+  slider2.addClass('range');
   p1 = createP(`Learn rate: ${slider2.value()}`);
   p1.style('font-size', '16px');
   p1.position(800, 175);
@@ -81,6 +83,7 @@ function setup()
   slider3 = createSlider(0, 300, 65, 1);
   slider3.position(800, 260);
   slider3.style('width', '150px');
+  slider3.addClass('range');
   p2 = createP(`Epsilon (bigger = more exploration): ${slider3.value()}`);
   p2.style('font-size', '16px');
   p2.position(800, 225);
@@ -88,6 +91,7 @@ function setup()
   slider4 = createSlider(0, 5000, 1350, 1);
   slider4.position(800, 310);
   slider4.style('width', '150px');
+  slider4.addClass('range');
   p3 = createP(`Iteration (bigger = more exploration): ${slider4.value()}`);
   p3.style('font-size', '16px');
   p3.position(800, 275);
@@ -95,6 +99,7 @@ function setup()
   slider5 = createSlider(0, 2000, 600, 1);
   slider5.position(800, 360);
   slider5.style('width', '150px');
+  slider5.addClass('range');
   p4 = createP(`Action limit: ${slider5.value()}`);
   p4.style('font-size', '16px');
   p4.position(800, 325);
@@ -102,6 +107,7 @@ function setup()
   slider6 = createSlider(0, 200, 90, 1);
   slider6.position(800, 410);
   slider6.style('width', '150px');
+  slider6.addClass('range');
   p5 = createP(`Episode limit: ${slider6.value()}`);
   p5.style('font-size', '16px');
   p5.position(800, 375);
@@ -109,6 +115,7 @@ function setup()
   slider7 = createSlider(0, 30, 18, 1);
   slider7.position(800, 460);
   slider7.style('width', '150px');
+  slider7.addClass('range');
   p6 = createP(`Grid size: ${slider7.value()}`);
   p6.style('font-size', '16px');
   p6.position(800, 425);
@@ -116,6 +123,7 @@ function setup()
   slider8 = createSlider(1, 30, 10, 1);
   slider8.position(800, 510);
   slider8.style('width', '150px');
+  slider8.addClass('range');
   p7 = createP(`Min. Distance Start-Goal: ${slider8.value()}`);
   p7.style('font-size', '16px');
   p7.position(800, 475);
