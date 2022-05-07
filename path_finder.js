@@ -21,6 +21,8 @@ let size = 0;
 let slider7;
 let pl_goal_distance = 0;
 let slider8;
+let num_gifts = 3;
+let slider9;
 let p;
 let p1;
 let p2;
@@ -29,6 +31,7 @@ let p4;
 let p5;
 let p6;
 let p7;
+let p8;
 let start_btn;
 let stop_btn;
 let reset_btn;
@@ -63,74 +66,82 @@ function setup()
 {
   createCanvas(displayWidth, displayHeight);
   //custom_slider();
-  sim = new Simulation(15, 1350, 0.97, 0.8, 65, 600, 90, 10, false, [], [0,0], [0,0], false, []);
+  sim = new Simulation(15, 1350, 0.97, 0.8, 65, 600, 90, 10, false, [], [0,0], [0,0], false, [], num_gifts);
 
   slider1 = createSlider(0, 1, 0.97, 0.01);
-  slider1.position(800, 160);
+  slider1.position(800, 140);
   slider1.style('width', '150px');
   slider1.addClass('range');
   p = createP(`Discount value: ${slider1.value()}`);
   p.style('font-size', '16px');
-  p.position(800, 125);
+  p.position(800, 105);
 
   slider2 = createSlider(0, 1, 0.8, 0.01);
-  slider2.position(800, 210);
+  slider2.position(800, 1900);
   slider2.style('width', '150px');
   slider2.addClass('range');
   p1 = createP(`Learn rate: ${slider2.value()}`);
   p1.style('font-size', '16px');
-  p1.position(800, 175);
+  p1.position(800, 155);
 
   slider3 = createSlider(0, 300, 65, 1);
-  slider3.position(800, 260);
+  slider3.position(800, 240);
   slider3.style('width', '150px');
   slider3.addClass('range');
   p2 = createP(`Epsilon (bigger = more exploration): ${slider3.value()}`);
   p2.style('font-size', '16px');
-  p2.position(800, 225);
+  p2.position(800, 205);
 
   slider4 = createSlider(0, 5000, 1350, 1);
-  slider4.position(800, 310);
+  slider4.position(800, 290);
   slider4.style('width', '150px');
   slider4.addClass('range');
   p3 = createP(`Iteration (bigger = more exploration): ${slider4.value()}`);
   p3.style('font-size', '16px');
-  p3.position(800, 275);
+  p3.position(800, 255);
   
   slider5 = createSlider(0, 2000, 600, 1);
-  slider5.position(800, 360);
+  slider5.position(800, 340);
   slider5.style('width', '150px');
   slider5.addClass('range');
   p4 = createP(`Action limit: ${slider5.value()}`);
   p4.style('font-size', '16px');
-  p4.position(800, 325);
+  p4.position(800, 305);
 
   slider6 = createSlider(0, 200, 90, 1);
-  slider6.position(800, 410);
+  slider6.position(800, 390);
   slider6.style('width', '150px');
   slider6.addClass('range');
   p5 = createP(`Episode limit: ${slider6.value()}`);
   p5.style('font-size', '16px');
-  p5.position(800, 375);
+  p5.position(800, 355);
 
   slider7 = createSlider(0, 30, 18, 1);
-  slider7.position(800, 460);
+  slider7.position(800, 440);
   slider7.style('width', '150px');
   slider7.addClass('range');
   p6 = createP(`Grid size: ${slider7.value()}`);
   p6.style('font-size', '16px');
-  p6.position(800, 425);
+  p6.position(800, 405);
 
   slider8 = createSlider(1, 30, 10, 1);
-  slider8.position(800, 510);
+  slider8.position(800, 490);
   slider8.style('width', '150px');
   slider8.addClass('range');
   p7 = createP(`Min. Distance Start-Goal: ${slider8.value()}`);
   p7.style('font-size', '16px');
-  p7.position(800, 475);
+  p7.position(800, 455);
+
+  slider9 = createSlider(1, 10, 3, 1);
+  slider9.position(800, 540);
+  slider9.style('width', '150px');
+  slider9.addClass('range');
+  p8 = createP(`Num. Gifts: ${slider9.value()}`);
+  p8.style('font-size', '16px');
+  p8.position(800, 505);
 
   checkbox1 = createCheckbox('Show precalculated path', false);
-  checkbox1.position(800, 80);
+  checkbox1.position(800, 60);
   //checkbox1 = document.querySelector(".cbox1");
   checkbox1.changed(checkbox1_change);
 
@@ -188,7 +199,7 @@ function stop()
 
 function reset()
 {
-	sim = new Simulation(size, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, false, [], [0,0], [0,0], false, []);
+	sim = new Simulation(size, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, false, [], [0,0], [0,0], false, [], num_gifts);
 }
 
 function save_map()
@@ -350,6 +361,8 @@ function draw()
   size = slider7.value();
   p7.html(`Min. Distance Start-Goal: ${slider8.value()}`);
   pl_goal_distance = slider8.value();
+  p8.html(`Num. Gifts: ${slider9.value()}`);
+  num_gifts = slider9.value();
 
   if(load_bol) 
   {
@@ -359,7 +372,7 @@ function draw()
 			if(loaded_file[i].includes(3)) goal = [i, loaded_file[i].indexOf(3)];
 	  }
 
-	  sim = new Simulation(loaded_file.length, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, true, loaded_file, start_pos, goal);
+	  sim = new Simulation(loaded_file.length, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, true, loaded_file, start_pos, goal, num_gifts);
 	  load_bol = false;
   }
   else if(load_ai_bol)
@@ -370,7 +383,7 @@ function draw()
 		  if(loaded_file[i].includes(3)) goal = [i, loaded_file[i].indexOf(3)];
 	}
 
-	  sim = new Simulation(loaded_file.length, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, false, loaded_file, start_pos, goal, true, loaded_qmap);
+	  sim = new Simulation(loaded_file.length, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, false, loaded_file, start_pos, goal, true, loaded_qmap, num_gifts);
 	  load_ai_bol = false;
   }
 
@@ -473,7 +486,7 @@ function PQueue()
 
 class Simulation
   {
-    constructor(size, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, load_map, grid, start_pos, goal, load_qmap, qmap)
+    constructor(size, iterations, discount, learn_rate, epsilon, action_limit, episode_limit, pl_goal_distance, load_map, grid, start_pos, goal, load_qmap, qmap, num_gifts)
     {
 	  this.size = size;
       //this.q_map = Array.from({ length: this.size }, () => Array(this.size).fill({'up':0,'down':0,'right':0,'left':0})); only creates copys by reference not value!!!
@@ -515,7 +528,7 @@ class Simulation
       this.action_limit = action_limit;
       this.mode = '';
       this.num_walls = parseInt((this.size*this.size)/3);
-      this.num_gift = 3;
+      this.num_gift = num_gifts;
       this.dist_reward = 0;
       this.distance_old = 0;
       this.dist_rew = 0;
