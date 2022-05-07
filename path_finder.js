@@ -1178,7 +1178,7 @@ class Simulation
 
         if(p < epsilon)
 		{
-            this.mode = 'random';
+            this.mode = 'exploration';
             //this.action = this.moves[Math.floor(Math.random() * this.moves.length)]; //Random item from moves array
 			for(var i = 0; i < this.moves.length; i++)
 			{
