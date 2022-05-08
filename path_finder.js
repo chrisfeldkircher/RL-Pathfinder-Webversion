@@ -1,8 +1,8 @@
 let sim;
-let slider = undefined;
-let thumb =  undefined;
-let tooltip =  undefined;
-let progress =  undefined;
+let slider;
+let thumb;
+let tooltip;
+let progress;
 let max_value = 0;
 let checkbox1;
 let discount = 0;
@@ -51,30 +51,6 @@ let start_pos = [];
 let goal = [];
 let loaded = 0;
 
-function touchStarted () 
-{
-	var fs = fullscreen();
-	if (!fs) 
-	{
-	  fullscreen(true);
-	}
-  }
-  
-  /* full screening will change the size of the canvas */
-  function windowResized() 
-  {
-	resizeCanvas(windowWidth, windowHeight);
-  }
-  
-  /* prevents the mobile browser from processing some default
-   * touch events, like swiping left for "back" or scrolling
-   * the page.
-   */
-  document.ontouchmove = function(event) 
-  {
-	  event.preventDefault();
-  };
-
 // const container = document.querySelectorAll(".range-slider");
 
 /*
@@ -88,7 +64,7 @@ for(var i = 0; i < container.length; i++)
 
 function setup() 
 {
-  createCanvas(displayWidth, displayHeight);
+  createCanvas(windowWidth, windowHeight);
   //custom_slider();
   sim = new Simulation(15, 1350, 0.97, 0.8, 65, 600, 90, 10, false, [], [0,0], [0,0], false, [], num_gifts);
 
@@ -452,6 +428,28 @@ function keyPressed()
   }
 }
 */
+
+
+function touchStarted() 
+{
+	var fs = fullscreen();
+	if (!fs) 
+	{
+	  fullscreen(true);
+      document.webkitCancelFullScreen();
+	}
+}
+  
+function windowResized() 
+{
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+document.ontouchmove = function(event) 
+{
+  event.preventDefault();
+};
+
 
 function PQueue() 
 {
