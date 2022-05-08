@@ -51,6 +51,30 @@ let start_pos = [];
 let goal = [];
 let loaded = 0;
 
+function touchStarted () 
+{
+	var fs = fullscreen();
+	if (!fs) 
+	{
+	  fullscreen(true);
+	}
+  }
+  
+  /* full screening will change the size of the canvas */
+  function windowResized() 
+  {
+	resizeCanvas(windowWidth, windowHeight);
+  }
+  
+  /* prevents the mobile browser from processing some default
+   * touch events, like swiping left for "back" or scrolling
+   * the page.
+   */
+  document.ontouchmove = function(event) 
+  {
+	  event.preventDefault();
+  };
+
 // const container = document.querySelectorAll(".range-slider");
 
 /*
