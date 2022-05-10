@@ -77,7 +77,7 @@ function setup()
   p.position(800, 105);
 
   slider2 = createSlider(0, 1, 0.8, 0.01);
-  slider2.position(800, 1900);
+  slider2.position(800, 190);
   slider2.style('width', '150px');
   slider2.addClass('range');
   p1 = createP(`Learn rate: ${slider2.value()}`);
@@ -429,7 +429,7 @@ function keyPressed()
 }
 */
 
-
+/*
 function touchStarted() 
 {
 	var fs = fullscreen();
@@ -439,7 +439,8 @@ function touchStarted()
       document.webkitCancelFullScreen();
 	}
 }
-  
+*/
+
 function windowResized() 
 {
   resizeCanvas(windowWidth, windowHeight);
