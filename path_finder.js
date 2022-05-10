@@ -349,7 +349,7 @@ function draw()
   discount = slider1.value();
   p1.html(`Learn rate: ${slider2.value()}`);
   learn_rate = slider2.value();
-  p2.html(`Epsilon (bigger = more exploration): ${slider3.value()}`);
+  p2.html(`Epsilon (smaller = more exploration): ${slider3.value()}`);
   epsilon = slider3.value();
   p3.html(`Iteration (bigger = more exploration): ${slider4.value()}`);
   iterations = slider4.value();
