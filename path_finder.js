@@ -88,7 +88,7 @@ function setup()
   slider3.position(800, 240);
   slider3.style('width', '150px');
   slider3.addClass('range');
-  p2 = createP(`Epsilon (bigger = more exploration): ${slider3.value()}`);
+  p2 = createP(`Epsilon (smaller = more exploration): ${slider3.value()}`);
   p2.style('font-size', '16px');
   p2.position(800, 205);
 
