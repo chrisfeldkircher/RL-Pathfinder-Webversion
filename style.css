@@ -378,6 +378,7 @@ input[type="checkbox"]:focus
 
 button:before 
 {
+    -webkit-appearance: none;
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
@@ -411,6 +412,7 @@ button:hover:before
 
 button:after 
 {
+    -webkit-appearance: none;
     z-index: -1;
     content: '';
     position: absolute;
@@ -427,13 +429,4 @@ button:after
     0% { background-position: 0 0; }
     50% { background-position: 400% 0; }
     100% { background-position: 0 0; }
-}
-
-@media screen and (max-width : 480px) 
-{
-  html, body
-  {
-    font-size: 12px;
-    padding: 4px; 
-  }
 }
